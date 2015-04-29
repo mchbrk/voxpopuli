@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+  
+      <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+      <!--header start-->
+      <header class="header black-bg">
+              <div class="sidebar-toggle-box">
+                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+              </div>
+            <!--logo start-->
+            <span class='subtitle'><a href="/" class="logo"><b> VOX POPULI: </b>
+            <!--logo end-->Adventures in vote theory</span></a>
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                       
+                </ul>
+                <!--  notification end -->
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                     <li><a class="logout" href="{{path('fos_user_security_logout')}}">Logout</a></li> 
+                     {% else %}
+                      <li><a class="logout" href="{{path('fos_user_security_login')}}">Login</a></li> 
+                    {% endif %}
+                    
+                </ul>
+            </div>
+        </header>

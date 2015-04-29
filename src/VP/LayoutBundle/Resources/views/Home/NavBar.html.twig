@@ -1,0 +1,54 @@
+<aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+              
+                  <p class="centered"><a href="profile.html"><img src="{{asset('bundles/vplayout/img/person.svg')}}" class="img-circle" width="60"></a></p>
+                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <h5 class="centered"> {{app.user.username}} </h5> {% endif %}
+                    
+                  <li class="mt">
+                      <a class="active" href="{{ path("poll_new") }}">
+                            <i class="fa fa-tasks"></i>
+                          <span>Create a poll</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                           <i class=" fa fa-bar-chart-o"></i>
+                          <span>Your polls</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="{{ path("poll") }}">Active polls</a></li>
+                          <li><a  href="{{ path("poll") }}">Closed polls</a></li>
+                          <li><a  href="{{ path("vote") }}">Your votes</a></li>
+                      </ul>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cogs"></i>
+                          <span>Your profile</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href=" {{ path("fos_user_profile_edit") }}">Settings</a></li>
+                          <li><a  href="/">Friends</a></li>
+                          <li><a  href="/">Messages</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-book"></i>
+                          <span>Theory</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="/">1</a></li>
+                          <li><a  href="/">2</a></li>
+                          <li><a  href="/">3</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->

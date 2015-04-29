@@ -1,0 +1,120 @@
+{% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
+
+{% block body %}
+    <script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId      : '1632731040290543',                        // App ID from the app dashboard
+                channelUrl : '//vox-populi.dev',      // Channel file for x-domain comms
+                status     : true,                                 // Check Facebook Login status
+                xfbml      : true                                  // Look for social plugins on the page
+            });
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function fb_login() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // connected
+                    alert('Already connected, redirect to login page to create token.');
+                    document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                } else {
+                    // not_authorized
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                        } else {
+                            alert('Cancelled.');
+                        }
+                    }, {scope: 'email'});
+                }
+            });
+        }
+    </script>
+  <div id="login-page">
+    {% block fos_user_content %}
+        {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+<div class="container">
+<form action="{{ path("fos_user_security_check") }}" class="form-login" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />    
+                <h2 class="form-login-heading">sign in now</h2>
+                <div class="login-wrap">
+                    <input  type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="User Name" autofocus>
+                    <br>
+                    <input type="password"  id="password" name="_password" required="required"  class="form-control" placeholder="Password">
+                    <label class="checkbox">
+                        <span class="pull-right">
+                            <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
+        
+                        </span>
+                    </label>
+                    <button class="btn btn-theme btn-block"  id="_submit" name="_submit" href="index.html" type="submit" value="{{ 'security.login.submit'|trans }}"><i class="fa fa-lock"></i> SIGN IN</button>
+                    <hr>
+                    
+                    <div class="login-social-link centered">
+
+
+                    <p>or you can sign in via your social network</p>
+                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Sign in with Facebook">
+                        <button class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</button>
+                        </a>
+                        <button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
+                    </div>
+                    <div class="registration">
+                        Don't have an account yet?<br/>
+                        <a class="" href="{{path('fos_user_registration_register')}}">
+                            Create an account
+                        </a>
+                    </div>
+        
+                </div>
+        
+                  <!-- Modal -->
+                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                  <h4 class="modal-title">Forgot Password ?</h4>
+                              </div>
+                              <div class="modal-body">
+                                  <p>Enter your e-mail address below to reset your password.</p>
+                                  <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+        
+                              </div>
+                              <div class="modal-footer">
+                                  <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                                  <button class="btn btn-theme" type="button">Submit</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- modal -->
+        
+              </form>       
+        
+        </div>
+      </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{asset('bundles/vplayout/js/jquery.js')}}"></script>
+    <script src="{{asset('bundles/vplayout/js/bootstrap.min.js')}}"></script>
+    {% render(controller('HWIOAuthBundle:Connect:connect')) %}
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="{{asset('bundles/vplayout/js/jquery.backstretch.min.js')}}"></script>
+    {% endblock fos_user_content %}
+
+  {% endblock %}

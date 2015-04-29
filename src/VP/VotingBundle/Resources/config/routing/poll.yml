@@ -1,0 +1,30 @@
+poll:
+    path:     /
+    defaults: { _controller: "VPVotingBundle:Poll:index" }
+
+poll_show:
+    path:     /{id}/show
+    defaults: { _controller: "VPVotingBundle:Poll:show" }
+
+poll_new:
+    path:     /new
+    defaults: { _controller: "VPVotingBundle:Poll:new" }
+
+poll_create:
+    path:     /create
+    defaults: { _controller: "VPVotingBundle:Poll:create" }
+    methods:  POST
+
+poll_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VPVotingBundle:Poll:edit" }
+
+poll_update:
+    path:     /{id}/update
+    defaults: { _controller: "VPVotingBundle:Poll:update" }
+    methods:  [POST, PUT]
+
+poll_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VPVotingBundle:Poll:delete" }
+    methods:  [POST, DELETE]
