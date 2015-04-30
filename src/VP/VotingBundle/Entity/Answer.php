@@ -36,13 +36,13 @@ class Answer
     protected $poll;
 
     /**
-     * @ORM\OneToMany(targetEntity="Vote", mappedBy="answer")
+     * @ORM\OneToMany(targetEntity="Preference", mappedBy="answer")
      */
-    protected $votes;
+    protected $preferences;
 
      public function __construct()
     {
-        $this->votes = new ArrayCollection();
+        $this->preferences = new ArrayCollection();
     }
 
  public function __toString()
@@ -109,35 +109,35 @@ class Answer
     }
 
     /**
-     * Add votes
+     * Add preferences
      *
-     * @param \VP\VotingBundle\Entity\Vote $votes
+     * @param \VP\VotingBundle\Entity\Preference $preferences
      * @return Answer
      */
-    public function addVote(\VP\VotingBundle\Entity\Vote $votes)
+    public function addPreference(\VP\VotingBundle\Entity\Preference $preferences)
     {
-        $this->votes[] = $votes;
+        $this->preferences[] = $preferences;
 
         return $this;
     }
 
     /**
-     * Remove votes
+     * Remove preferences
      *
-     * @param \VP\VotingBundle\Entity\Vote $votes
+     * @param \VP\VotingBundle\Entity\Preference $preferences
      */
-    public function removeVote(\VP\VotingBundle\Entity\Vote $votes)
+    public function removePreference(\VP\VotingBundle\Entity\Preference $preferences)
     {
-        $this->votes->removeElement($votes);
+        $this->preferences->removeElement($preferences);
     }
 
     /**
-     * Get votes
+     * Get preferences
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getVotes()
+    public function getPreferences()
     {
-        return $this->votes;
+        return $this->preferences;
     }
 }

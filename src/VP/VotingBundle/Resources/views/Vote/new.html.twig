@@ -1,9 +1,17 @@
 {% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
 
-{% block body %}
+{% block body -%}
     <h1>Vote creation</h1>
-
-    {{ form(form) }}
+    {{ form_start(form) }}
+      <h3>Options:</h3>
+      <ul class="preferences">
+        {% for preference in form.preferences %}
+            here the answer should be displayed
+            <li>{{ form_row(preference.rank) }}</li>
+            <li>{{ form_row(preference.approved) }}</li>
+            <li>{{ form_row(preference.negative) }}</li>
+        {% endfor %}
+    </ul>
 
         <ul class="record_actions">
     <li>
@@ -12,4 +20,5 @@
         </a>
     </li>
 </ul>
+{{ form_end(form) }}
 {% endblock %}

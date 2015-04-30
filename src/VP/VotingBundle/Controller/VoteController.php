@@ -4,13 +4,17 @@ namespace VP\VotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use VP\VotingBundle\Entity\Vote;
 use VP\VotingBundle\Form\VoteType;
+use VP\VotingBundle\Entity\Preference;
 
 /**
  * Vote controller.
  *
+ * @Route("/vote")
  */
 class VoteController extends Controller
 {
@@ -18,6 +22,9 @@ class VoteController extends Controller
     /**
      * Lists all Vote entities.
      *
+     * @Route("/", name="vote")
+     * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -25,17 +32,31 @@ class VoteController extends Controller
 
         $entities = $em->getRepository('VPVotingBundle:Vote')->findAll();
 
-        return $this->render('VPVotingBundle:Vote:index.html.twig', array(
+        return array(
             'entities' => $entities,
-        ));
+        );
     }
     /**
      * Creates a new Vote entity.
      *
+     * @Route("/create/{id}", name="vote_create")
+     * @Method( {"GET", "POST"} )
+     * @Template("VPVotingBundle:Vote:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
         $entity = new Vote();
+        $entity->setUser($this->getUser());
+        $entity->setDate(new \datetime);
+        $em = $this->getDoctrine()->getManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        $entity->setPoll($poll);
+        foreach ($poll->getAnswers() as $answer){
+            $preference = new Preference();
+            $preference->setAnswer($answer);
+            $preference->setVote($entity);
+            $entity->getPreferences()->add($preference);
+        }
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -47,10 +68,10 @@ class VoteController extends Controller
             return $this->redirect($this->generateUrl('vote_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('VPVotingBundle:Vote:new.html.twig', array(
+        return array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        );
     }
 
     /**
@@ -75,21 +96,27 @@ class VoteController extends Controller
     /**
      * Displays a form to create a new Vote entity.
      *
+     * @Route("/new", name="vote_new")
+     * @Method("GET")
+     * @Template()
      */
     public function newAction()
     {
         $entity = new Vote();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('VPVotingBundle:Vote:new.html.twig', array(
+        return array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        );
     }
 
     /**
      * Finds and displays a Vote entity.
      *
+     * @Route("/{id}", name="vote_show")
+     * @Method("GET")
+     * @Template()
      */
     public function showAction($id)
     {
@@ -103,15 +130,18 @@ class VoteController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('VPVotingBundle:Vote:show.html.twig', array(
+        return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
      * Displays a form to edit an existing Vote entity.
      *
+     * @Route("/{id}/edit", name="vote_edit")
+     * @Method("GET")
+     * @Template()
      */
     public function editAction($id)
     {
@@ -126,11 +156,11 @@ class VoteController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('VPVotingBundle:Vote:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -154,6 +184,9 @@ class VoteController extends Controller
     /**
      * Edits an existing Vote entity.
      *
+     * @Route("/{id}", name="vote_update")
+     * @Method("PUT")
+     * @Template("VPVotingBundle:Vote:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -175,15 +208,17 @@ class VoteController extends Controller
             return $this->redirect($this->generateUrl('vote_edit', array('id' => $id)));
         }
 
-        return $this->render('VPVotingBundle:Vote:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
     /**
      * Deletes a Vote entity.
      *
+     * @Route("/{id}", name="vote_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

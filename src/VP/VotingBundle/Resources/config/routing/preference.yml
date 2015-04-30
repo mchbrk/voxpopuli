@@ -1,0 +1,30 @@
+preference:
+    path:     /
+    defaults: { _controller: "VPVotingBundle:Preference:index" }
+
+preference_show:
+    path:     /{id}/show
+    defaults: { _controller: "VPVotingBundle:Preference:show" }
+
+preference_new:
+    path:     /new
+    defaults: { _controller: "VPVotingBundle:Preference:new" }
+
+preference_create:
+    path:     /create
+    defaults: { _controller: "VPVotingBundle:Preference:create" }
+    methods:  POST
+
+preference_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VPVotingBundle:Preference:edit" }
+
+preference_update:
+    path:     /{id}/update
+    defaults: { _controller: "VPVotingBundle:Preference:update" }
+    methods:  [POST, PUT]
+
+preference_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VPVotingBundle:Preference:delete" }
+    methods:  [POST, DELETE]

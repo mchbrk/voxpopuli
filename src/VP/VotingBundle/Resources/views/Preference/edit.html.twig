@@ -1,13 +1,13 @@
-{% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Vote edit</h1>
+    <h1>Preference edit</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('vote') }}">
+        <a href="{{ path('preference') }}">
             Back to the list
         </a>
     </li>

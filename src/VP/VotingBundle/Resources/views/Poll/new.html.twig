@@ -4,7 +4,6 @@
     <h1>Poll creation</h1>
 
     {{ form_start(form) }}
-    {# render the task's only field: description #}
     {{ form_row(form.name) }}
     {{ form_row(form.question) }}
     {{ form_row(form.endDate) }}
@@ -28,10 +27,12 @@
 
 <script>
 // setup an "add a tag" link
-var $addAnswerLink = $('<a href="#" class="add_answer_link">Add an answer</a>');
-var $newLinkLi = $('<li></li>').append($addAnswerLink);
+
 
 jQuery(document).ready(function() {
+
+    var $addAnswerLink = $('<a href="#" class="add_answer_link">Add an answer</a>');
+    var $newLinkLi = $('<li></li>').append($addAnswerLink);
     // Get the ul that holds the collection of tags
    var $collectionHolder = $('ul.answers');
     

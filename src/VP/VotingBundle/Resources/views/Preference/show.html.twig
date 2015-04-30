@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Preference</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Rank</th>
+                <td>{{ entity.rank }}</td>
+            </tr>
+            <tr>
+                <th>Approved</th>
+                <td>{{ entity.approved }}</td>
+            </tr>
+            <tr>
+                <th>Negative</th>
+                <td>{{ entity.negative }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('preference') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('preference_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

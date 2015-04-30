@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class VoteType extends AbstractType
+class PreferenceType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,9 +14,12 @@ class VoteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $builder->add('preferences', 'collection', array(
-        'type' => new PreferenceType(),
-    ));
+        $builder
+            ->add('rank')
+            ->add('approved')
+            ->add('negative')
+            ->add('answer')
+        ;
     }
     
     /**
@@ -25,7 +28,7 @@ class VoteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'VP\VotingBundle\Entity\Vote'
+            'data_class' => 'VP\VotingBundle\Entity\Preference'
         ));
     }
 
@@ -34,6 +37,6 @@ class VoteType extends AbstractType
      */
     public function getName()
     {
-        return 'vp_votingbundle_vote';
+        return 'vp_votingbundle_preference';
     }
 }

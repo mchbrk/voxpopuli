@@ -27,7 +27,14 @@
             </tr>
         </tbody>
     </table>
+    <br>
+    {% for answer in entity.answers %}
 
+        <h5> {{ answer.content }} </h5>
+
+    {% endfor %}
+
+   <a href="{{ path('vote_create', {"id": entity.id }) }}">Vote</a>
         <ul class="record_actions">
     <li>
         <a href="{{ path('poll') }}">

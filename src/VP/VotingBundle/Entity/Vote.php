@@ -7,62 +7,40 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Vote
- *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="VP\VotingBundle\Entity\VoteRepository")
  */
 class Vote
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
+     /**
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="rank", type="integer")
-     */
-    private $rank;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="approved", type="boolean")
-     */
-    private $approved;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="negative", type="integer")
-     */
-    private $negative;
-
-    /**
      * @var \DateTime
-     *
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Preference", mappedBy="vote", cascade={"persist", "remove"})
+     */
+    private $preferences;
 
      /**
      * @ORM\ManyToOne(targetEntity="VP\UserBundle\Entity\User", inversedBy="votes")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-
     private $user;
 
-     /**
-     * @ORM\ManyToOne(targetEntity="Answer", inversedBy="votes")
-     * @ORM\JoinColumn(name="answer_id", referencedColumnName="id")
+    /**
+     * @ORM\ManyToOne(targetEntity="Poll", inversedBy="votes")
+     * @ORM\JoinColumn(name="poll_id", referencedColumnName="id")
      */
-
-    private $answer;
+    private $poll;
 
 
     /**
@@ -73,75 +51,6 @@ class Vote
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set rank
-     *
-     * @param integer $rank
-     * @return Vote
-     */
-    public function setRank($rank)
-    {
-        $this->rank = $rank;
-
-        return $this;
-    }
-
-    /**
-     * Get rank
-     *
-     * @return integer 
-     */
-    public function getRank()
-    {
-        return $this->rank;
-    }
-
-    /**
-     * Set approved
-     *
-     * @param boolean $approved
-     * @return Vote
-     */
-    public function setApproved($approved)
-    {
-        $this->approved = $approved;
-
-        return $this;
-    }
-
-    /**
-     * Get approved
-     *
-     * @return boolean 
-     */
-    public function getApproved()
-    {
-        return $this->approved;
-    }
-
-    /**
-     * Set negative
-     *
-     * @param integer $negative
-     * @return Vote
-     */
-    public function setNegative($negative)
-    {
-        $this->negative = $negative;
-
-        return $this;
-    }
-
-    /**
-     * Get negative
-     *
-     * @return integer 
-     */
-    public function getNegative()
-    {
-        return $this->negative;
     }
 
     /**
@@ -165,6 +74,46 @@ class Vote
     public function getDate()
     {
         return $this->date;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->preferences = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add preferences
+     *
+     * @param \VP\VotingBundle\Entity\Preference $preferences
+     * @return Vote
+     */
+    public function addPreference(\VP\VotingBundle\Entity\Preference $preferences)
+    {
+        $this->preferences[] = $preferences;
+
+        return $this;
+    }
+
+    /**
+     * Remove preferences
+     *
+     * @param \VP\VotingBundle\Entity\Preference $preferences
+     */
+    public function removePreference(\VP\VotingBundle\Entity\Preference $preferences)
+    {
+        $this->preferences->removeElement($preferences);
+    }
+
+    /**
+     * Get preferences
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreferences()
+    {
+        return $this->preferences;
     }
 
     /**
@@ -191,25 +140,25 @@ class Vote
     }
 
     /**
-     * Set answer
+     * Set poll
      *
-     * @param \VP\VotingBundle\Entity\Answer $answer
+     * @param \VP\VotingBundle\Entity\Poll $poll
      * @return Vote
      */
-    public function setAnswer(\VP\VotingBundle\Entity\Answer $answer = null)
+    public function setPoll(\VP\VotingBundle\Entity\Poll $poll = null)
     {
-        $this->answer = $answer;
+        $this->poll = $poll;
 
         return $this;
     }
 
     /**
-     * Get answer
+     * Get poll
      *
-     * @return \VP\VotingBundle\Entity\Answer 
+     * @return \VP\VotingBundle\Entity\Poll 
      */
-    public function getAnswer()
+    public function getPoll()
     {
-        return $this->answer;
+        return $this->poll;
     }
 }

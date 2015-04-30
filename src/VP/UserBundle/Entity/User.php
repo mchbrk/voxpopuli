@@ -166,6 +166,16 @@ class User extends BaseUser
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
+    public function getVote()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
     public function getVotes()
     {
         return $this->votes;
