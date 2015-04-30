@@ -41,22 +41,22 @@
     {% include 'VPLayoutBundle:Home:Header.html.twig' %}
 
     {% include 'VPLayoutBundle:Home:NavBar.html.twig' %}     
-   <div class="container">
- {% block body %}
+  <section id="main-content">
+          <section class="wrapper">
 
- {% endblock body %}
-     
-      <!--footer start
-      <footer class="site-footer">
-          <div class="text-center">
-              EFFIQUE 
-              <a href="index.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-      footer end-->
-    </div>
+              <div class="row">
+                  <div class="col-lg-9 col-md-10 col-md-offset-2 main-chart">
+                  
+                    {% block body %}
+                    {% endblock %}
+          
+                  </div><!-- /col-lg-9 END SECTION MIDDLE -->
+                  
+              </div>
+          </section>
+      </section>
+
+      <!--main content end-->
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
    

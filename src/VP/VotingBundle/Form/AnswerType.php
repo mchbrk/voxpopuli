@@ -15,7 +15,11 @@ class AnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content')
+          ->add('content', 'text', array(
+                'label' => 'Option',
+                'attr' => array('class' => 'control-label col-sm-9'),
+               'label_attr'=> array('class' => 'control-label col-sm-2')
+                ))
         ;
     }
     
