@@ -41,15 +41,22 @@ class VoteController extends Controller
      */
     public function createAction(Request $request, $id)
     {
+
+        $em = $this->getDoctrine()->getManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
         $entity = new Vote();
         $entity->setUser($this->getUser());
         $entity->setDate(new \datetime);
-        $em = $this->getDoctrine()->getManager();
-        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
         $entity->setPoll($poll);
-        foreach ($poll->getAnswers() as $answer){
+        $answers = $poll->getAnswers();
+        foreach ($answers as $answer){
             $preference = new Preference();
             $preference->setAnswer($answer);
+            $content = $answer->getContent();
+            $preference->setContent($content);
             $preference->setVote($entity);
             $entity->getPreferences()->add($preference);
         }
@@ -66,6 +73,7 @@ class VoteController extends Controller
 
         return array(
             'entity' => $entity,
+            'poll' => $poll,
             'form'   => $form->createView(),
         );
     }

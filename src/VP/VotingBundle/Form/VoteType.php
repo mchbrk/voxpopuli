@@ -14,7 +14,10 @@ class VoteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $builder->add('preferences', 'collection', array('type' => new PreferenceType()));
+         $builder->add('preferences', 'collection', 
+            array('type' => new PreferenceType(), 'disabled' => false)
+            
+            );
     }
     
     /**

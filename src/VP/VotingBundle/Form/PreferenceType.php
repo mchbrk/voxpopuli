@@ -18,7 +18,7 @@ class PreferenceType extends AbstractType
             ->add('rank')
             ->add('approved')
             ->add('negative')
-            ->add('answer')
+            
         ;
     }
     

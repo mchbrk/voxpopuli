@@ -55,8 +55,22 @@ class Preference
      * @ORM\ManyToOne(targetEntity="Vote", inversedBy="preferences")
      * @ORM\JoinColumn(name="vote_id", referencedColumnName="id")
      */
-    protected $vote;
+    private $vote;
 
+    /**
+     * @var string
+     */
+    private $content;
+
+    public function __toString()
+    {
+        return $this->getContent();
+
+    }
+
+    public function __construct(){
+        $this->content = "Option";
+    }
 
     /**
      * Get id
@@ -182,4 +196,29 @@ class Preference
     {
         return $this->vote;
     }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+      /**
+     * Set content
+     *
+     * @param string $content
+     * @return Preference
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+
 }
