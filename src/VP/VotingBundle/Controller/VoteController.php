@@ -13,8 +13,6 @@ use VP\VotingBundle\Entity\Preference;
 
 /**
  * Vote controller.
- *
- * @Route("/vote")
  */
 class VoteController extends Controller
 {
@@ -22,7 +20,6 @@ class VoteController extends Controller
     /**
      * Lists all Vote entities.
      *
-     * @Route("/", name="vote")
      * @Method("GET")
      * @Template()
      */
@@ -39,7 +36,6 @@ class VoteController extends Controller
     /**
      * Creates a new Vote entity.
      *
-     * @Route("/create/{id}", name="vote_create")
      * @Method( {"GET", "POST"} )
      * @Template("VPVotingBundle:Vote:new.html.twig")
      */
@@ -57,7 +53,7 @@ class VoteController extends Controller
             $preference->setVote($entity);
             $entity->getPreferences()->add($preference);
         }
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity,$id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -81,10 +77,10 @@ class VoteController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Vote $entity)
+    private function createCreateForm(Vote $entity, $id)
     {
         $form = $this->createForm(new VoteType(), $entity, array(
-            'action' => $this->generateUrl('vote_create'),
+            'action' => $this->generateUrl('vote_create', ["id" => $id]),
             'method' => 'POST',
         ));
 
@@ -96,7 +92,6 @@ class VoteController extends Controller
     /**
      * Displays a form to create a new Vote entity.
      *
-     * @Route("/new", name="vote_new")
      * @Method("GET")
      * @Template()
      */
@@ -114,7 +109,6 @@ class VoteController extends Controller
     /**
      * Finds and displays a Vote entity.
      *
-     * @Route("/{id}", name="vote_show")
      * @Method("GET")
      * @Template()
      */
@@ -139,7 +133,6 @@ class VoteController extends Controller
     /**
      * Displays a form to edit an existing Vote entity.
      *
-     * @Route("/{id}/edit", name="vote_edit")
      * @Method("GET")
      * @Template()
      */
@@ -183,8 +176,6 @@ class VoteController extends Controller
     }
     /**
      * Edits an existing Vote entity.
-     *
-     * @Route("/{id}", name="vote_update")
      * @Method("PUT")
      * @Template("VPVotingBundle:Vote:edit.html.twig")
      */
@@ -216,8 +207,6 @@ class VoteController extends Controller
     }
     /**
      * Deletes a Vote entity.
-     *
-     * @Route("/{id}", name="vote_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)

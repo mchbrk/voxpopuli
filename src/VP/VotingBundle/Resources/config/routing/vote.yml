@@ -13,7 +13,7 @@ vote_new:
 vote_create:
     path:     /create/{id}/
     defaults: { _controller: "VPVotingBundle:Vote:create", id:1 }
-    methods:  [POST, GET]
+    methods:  [ GET, POST]
 
 vote_edit:
     path:     /{id}/edit
