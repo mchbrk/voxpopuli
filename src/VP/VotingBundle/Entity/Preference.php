@@ -32,14 +32,14 @@ class Preference
     /**
      * @var boolean
      *
-     * @ORM\Column(name="approved", type="boolean")
+     * @ORM\Column(name="approved", type="boolean", nullable=true)
      */
     private $approved;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="negative", type="integer")
+     * @ORM\Column(name="negative", type="integer", nullable=true )
      */
     private $negative;
 

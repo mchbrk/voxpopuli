@@ -16,8 +16,15 @@ class PreferenceType extends AbstractType
     {
         $builder
             ->add('rank')
-            ->add('approved')
-            ->add('negative')
+            ->add('approved', 'choice', array(
+                'choices'  => array( 1 => 'approved',  0 => 'not approved'),
+                'required' => false
+                )
+            )
+            ->add('negative', 'choice', array(
+        'choices'  => array(-1 => 'negative vote', 1 => 'positive vote', 0 => 'neutral vote'),
+        'required' => false,
+));
             
         ;
     }
