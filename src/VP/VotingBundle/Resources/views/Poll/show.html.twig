@@ -18,13 +18,12 @@
                 {{ entity.dateEnd|date('Y-m-d H:i:s') }}
     
     <br>
-    <h2>Choices</h2><ul>
+    <h2>Choices</h2>
     {% for answer in entity.answers %}
 
         <li><h4> {{ answer.content }} </h4></li>
 
     {% endfor %}
-    </ul>
 
    <a href="{{ path('vote_create', {"id": entity.id }) }}">Vote</a>
         <ul class="record_actions">

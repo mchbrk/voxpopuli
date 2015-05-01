@@ -1,41 +1,30 @@
 {% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
 
 {% block body -%}
-    <h1>Vote list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('vote_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('vote_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('vote_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+<div class='row'>
+ {% for entity in entities %}
+    <div class="col-md-3 mb">
+        <div class="white-panel pn">
+            <div class="white-header">
+                <h5><a href="{{ path('poll_show', { 'id': entity.poll.id }) }}">{{ entity.poll }}</a></h5>
+                                </div>
+                                <p><a href="{{ path('vote_show', { 'id': entity.id }) }}"><img src="{{asset('bundles/vplayout/img/vote.svg')}}" width="80"></a>
+                                </p>
+                                <p>First choice:</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="small mt">DATE</p>
+                                        <p>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="small mt">POLL STATUS</p>
+                                        <p>open</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('vote_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+</div>
+    
+{% endblock %}

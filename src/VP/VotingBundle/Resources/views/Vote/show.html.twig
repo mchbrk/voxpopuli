@@ -1,32 +1,21 @@
 {% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
 
 {% block body -%}
-    <h1>Vote</h1>
+    <div class="form-panel">
+               <h2>{{ entity.poll }} - your vote</h2>
+               Date of vote: {{ entity.date|date('Y-m-d H:i:s') }}
+            
+    
+    <br>
+    <h2>Your preferences</h2>
+    {% for preference in entity.preferences %}
+        {# dobrze by posortować wg ranka #}
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <h4> {{ preference.answer }} </h4>
+        <p>{{ preference.rank}}<p>
+        <p> Negative vote: {{preference.negative}}</p>
+        <p> Approved: {{preference.approved}}</p>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('vote') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('vote_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    {% endfor %}
+</div>
 {% endblock %}

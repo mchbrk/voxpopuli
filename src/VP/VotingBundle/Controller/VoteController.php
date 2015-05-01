@@ -52,12 +52,15 @@ class VoteController extends Controller
         $entity->setDate(new \datetime);
         $entity->setPoll($poll);
         $answers = $poll->getAnswers();
+        $rank = 1;
         foreach ($answers as $answer){
             $preference = new Preference();
-            $preference->setAnswer($answer);
-            $content = $answer->getContent();
-            $preference->setContent($content);
+            //$preference->setAnswer($answer);
+            //$content = $answer->getContent();
+            //$preference->setContent($content);
             $preference->setVote($entity);
+            $preference->setRank($rank);
+            $rank++;
             $entity->getPreferences()->add($preference);
         }
         $form = $this->createCreateForm($entity,$id);

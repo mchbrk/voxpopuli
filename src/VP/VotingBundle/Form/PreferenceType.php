@@ -13,9 +13,21 @@ class PreferenceType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {   
+        //$id =8; //jakos podac id? i tak nie działa
         $builder
-            ->add('rank')
+          /*   ->add('answer', 'entity',  array(
+            'class' => 'VP\VotingBundle\Entity\Answer',
+            'property' => 'line',
+            'query_builder' => function (EntityRepository $er) use ($id)
+            {
+      return $er
+        ->createQueryBuilder('a')
+        ->where('a.poll = :id')
+        ->setParameter('id', $id);
+}
+))*/
+            ->add('answer')
             ->add('approved', 'choice', array(
                 'choices'  => array( 1 => 'approved',  0 => 'not approved'),
                 'required' => false
@@ -24,6 +36,7 @@ class PreferenceType extends AbstractType
             ->add('negative', 'choice', array(
         'choices'  => array(-1 => 'negative vote', 1 => 'positive vote', 0 => 'neutral vote'),
         'required' => false,
+        'label' => 'Negative voting option:'
 ));
             
         ;

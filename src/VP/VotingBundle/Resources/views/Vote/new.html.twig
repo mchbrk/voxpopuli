@@ -1,26 +1,23 @@
 {% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
-
 {% block body %}
-    <br><br><br>
-    {{ form_start(form) }}
-    <h2>{{poll.name}}</h2>
-    {{poll.question}}
-      <h3>Options:</h3>
-      <ul class="preferences">
+    <div class="col-md-8 col-md-offset-2">
+    <div class="form-panel">
+    
+    <h2 class="mb text-center"> {{poll.name}} </h2>
+        <div class="row text-center">
+            <img src="{{asset('bundles/vplayout/img/checklistopen.svg')}}" width="120">
+        </div>
+       
+    <h4 class="mb"><i class="fa fa-angle-right"></i> {{poll.question}}</h4>
+      <h3 class="mb text-center">Your vote</h3>
+      {{ form_start(form) }}
         {% for preference in form.preferences %}
-           {{ preference.vars.value.content }}
-            <li>{{ form_row(preference.rank) }}</li>
-            <li>{{ form_row(preference.approved) }}</li>
-            <li>{{ form_row(preference.negative) }}</li>
+          <h4> Your preference number {{ preference.vars.value.rank }}: </h4>
+            {{ form_row(preference.answer)}}
+            {{ form_row(preference.approved) }}
+            {{ form_row(preference.negative) }}
         {% endfor %}
-    </ul>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('vote') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
-{{ form_end(form) }}
+    {{ form_end(form) }}
+</div>
+</div>
 {% endblock %}

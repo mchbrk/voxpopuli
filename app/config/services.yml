@@ -1,0 +1,6 @@
+services:
+    sortbyfield.twig_extension:
+        class: VP\LayoutBundle\Twig\SortByFieldExtension
+        public: false
+        tags:
+            - { name: twig.extension }
