@@ -38,7 +38,8 @@ class PollController extends Controller
     {
         $entity = new Poll();
         $entity->setUser($this->getUser());
-        $entity->setStartDate(new \datetime);
+        $entity->setDateStart(new \datetime);
+         $entity->setDateEnd(new \datetime); //untill date picker is fixed
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 

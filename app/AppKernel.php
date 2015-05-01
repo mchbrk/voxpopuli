@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new VP\UserBundle\VPUserBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new VP\VotingBundle\VPVotingBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

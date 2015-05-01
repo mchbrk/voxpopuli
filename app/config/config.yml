@@ -97,3 +97,6 @@ hwi_oauth:
             client_id:           1632731040290543
             client_secret:       1fa9f104f5ff2f7c9975276a56cdba76
 
+sc_datetimepicker:
+    picker: ~
+

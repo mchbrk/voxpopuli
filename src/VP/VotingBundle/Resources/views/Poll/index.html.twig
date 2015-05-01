@@ -1,47 +1,28 @@
 {% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
 
 {% block body %}
-    <h1>Poll list</h1>
-
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Question</th>
-                <th>Startdate</th>
-                <th>Enddate</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('poll_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.question }}</td>
-                <td>{% if entity.startDate %}{{ entity.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.endDate %}{{ entity.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('poll_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('poll_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+<div class='row'>
+ {% for entity in entities %}
+    <div class="col-md-3 mb">
+        <div class="white-panel pn">
+            <div class="white-header">
+                <h5>{{ entity.name }}</h5>
+                                </div>
+                                <p><a href="{{ path('poll_show', { 'id': entity.id }) }}"><img src="{{asset('bundles/vplayout/img/poll.svg')}}" class="img-circle" width="80"></a>
+                                </p>
+                                <p>author: <b> {{ entity.user }} </b></p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="small mt">START</p>
+                                        <p>{% if entity.dateStart %}{{ entity.dateStart|date('Y-m-d H:i:s') }}{% endif %}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="small mt">END</p>
+                                        <p>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d H:i:s') }}{% endif %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('poll_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+</div>
     {% endblock %}

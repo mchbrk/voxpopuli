@@ -1,10 +1,10 @@
 {% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
 
 {% block body %}
-
-
-{% block fos_user_content %}
-{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
-{% endblock fos_user_content %}
-
+<div class="form-panel">
+    <h3 class="mb"><i class="fa fa-angle-right"></i>User information</h3>
+    {% block fos_user_content %}
+        {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+    {% endblock fos_user_content %}
+</div>
 {% endblock %}

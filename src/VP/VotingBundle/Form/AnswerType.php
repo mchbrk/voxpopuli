@@ -17,8 +17,9 @@ class AnswerType extends AbstractType
         $builder
           ->add('content', 'text', array(
                 'label' => 'Option',
-                'attr' => array('class' => 'control-label col-sm-9'),
-               'label_attr'=> array('class' => 'control-label col-sm-2')
+                'attr' => array('class' => 'control-label form-control col-sm-10',
+                    'style' => 'width: 78%; margin-right: 1%'),
+                'label_attr'=> array('class' => 'control-label col-sm-2')
                 ))
         ;
     }
