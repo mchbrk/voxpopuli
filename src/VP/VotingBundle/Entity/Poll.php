@@ -66,6 +66,7 @@ class Poll
      */
     private $user;
 
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();

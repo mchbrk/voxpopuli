@@ -39,16 +39,16 @@ class Poll
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startDate", type="datetime")
+     * @ORM\Column(name="dateStart", type="datetime")
      */
-    private $startDate;
+    private $dateStart;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime")
+     * @ORM\Column(name="dateEnd", type="datetime")
      */
-    private $endDate;
+    private $dateEnd;
 
     /**
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="poll", cascade={"persist", "remove"})
@@ -65,6 +65,7 @@ class Poll
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
 
     public function __construct()
     {
@@ -136,49 +137,49 @@ class Poll
     }
 
     /**
-     * Set startDate
+     * Set dateStart
      *
-     * @param \DateTime $startDate
+     * @param \DateTime $dateStart
      * @return Poll
      */
-    public function setStartDate($startDate)
+    public function setDateStart($dateStart)
     {
-        $this->startDate = $startDate;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
 
     /**
-     * Get startDate
+     * Get dateStart
      *
      * @return \DateTime 
      */
-    public function getStartDate()
+    public function getDateStart()
     {
-        return $this->startDate;
+        return $this->dateStart;
     }
 
     /**
-     * Set endDate
+     * Set dateEnd
      *
-     * @param \DateTime $endDate
+     * @param \DateTime $dateEnd
      * @return Poll
      */
-    public function setEndDate($endDate)
+    public function setDateEnd($dateEnd)
     {
-        $this->endDate = $endDate;
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }
 
     /**
-     * Get endDate
+     * Get dateEnd
      *
      * @return \DateTime 
      */
-    public function getEndDate()
+    public function getDateEnd()
     {
-        return $this->endDate;
+        return $this->dateEnd;
     }
 
     /**

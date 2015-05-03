@@ -16,4 +16,12 @@ class HomeController extends Controller
     {
        return $this->render("VPLayoutBundle:Home:HomePage.html.twig");}
 
+    /**
+     * @Route("/intro")
+     * @Template()
+     */
+    public function IntroAction()
+    {
+       return $this->render("VPLayoutBundle:Home:Intro.html.twig");}
+
 }
