@@ -4,6 +4,8 @@ namespace VP\VotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use  Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Poll
@@ -45,7 +47,7 @@ class Poll
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
      * @ORM\Column(name="dateEnd", type="datetime")
      */
     private $dateEnd;
@@ -66,6 +68,21 @@ class Poll
      */
     private $user;
 
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+       
+            if ($this->dateStart > $this->dateEnd){
+                 $context->buildViolation('The ending date has already passed.')
+                ->atPath('dateEnd')
+                ->addViolation();
+                return;
+            }
+            
+
+    }
 
     public function __construct()
     {
