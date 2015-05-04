@@ -23,21 +23,21 @@ class PollType extends AbstractType
                 'attr' => array('style' =>'resize: none')
                 ))
             ->add('dateEnd', 'collot_datetime', array( 'pickerOptions' =>
-            array('format' => 'yyyy-mm-dd hh:mm:ss',
+            array('format' => 'yyyy-mm-dd hh:ii',
                 'weekStart' => 1,
-                'startDate' => date("Y-m-d H:i:s"),
-                'endDate' => date("Y-m-d H:i:s", strtotime('+1 year', $timestamp) ),
+                'startDate' => date("Y-m-d H:i"),
+                'endDate' => date("Y-m-d H:i", strtotime('+1 year', $timestamp) ),
                 'daysOfWeekDisabled' => null,//example
                 'autoclose' => true,
                 'startView' => 'month',
                 'minView' => 'hour',
                 'maxView' => 'decade',
-                'todayBtn' => true,
+                'todayBtn' => false,
                 'todayHighlight' => true,
                 'keyboardNavigation' => true,
                 'language' => 'en',
                 'forceParse' => true,
-                'minuteStep' => 20,
+                'minuteStep' => 5,
                 'pickerReferer ' => 'default', //deprecated
                 'pickerPosition' => 'bottom-right',
                 'viewSelect' => 'hour',

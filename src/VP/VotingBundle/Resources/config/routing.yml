@@ -17,7 +17,3 @@ vp_voting_poll:
 vp_voting_result:
     resource: "@VPVotingBundle/Resources/config/routing/result.yml"
     prefix:   /result
-
-vp_voting_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: VPVotingBundle:Default:index }
