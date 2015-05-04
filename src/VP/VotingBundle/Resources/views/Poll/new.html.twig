@@ -18,13 +18,14 @@
             {{ form_widget(form.question, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
-
+  {{ form_errors(form.dateEnd) }}
      <div class='form-group'> 
         {{ form_stylesheet(form) }}
          {{ form_javascript(form) }} 
         {{ form_label(form.dateEnd, 
          'End date', { 'label_attr': {'class': 'control-label col-sm-2'} }) }}
-           {{ form_errors(form.dateEnd) }}
+         
+         
         <div class='col-sm-10'>
             {{ form_widget(form.dateEnd) }}
         </div>

@@ -47,6 +47,15 @@ class VoteController extends Controller
         if (!$poll) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
+
+        $em = $this->getDoctrine()->getManager();
+        $checkVoted = $em->getRepository('VPVotingBundle:Vote')->findOneBy(array(
+            'user' => $this->getUser(),
+            'poll' => $poll
+        )); 
+        if ($checkVoted){
+            return $this->redirect($this->generateUrl('poll_show', array('id' => $poll->getId())));
+        }//daj session i flashbag
         $entity = new Vote();
         $entity->setUser($this->getUser());
         $entity->setDate(new \datetime);
@@ -55,9 +64,6 @@ class VoteController extends Controller
         $rank = 1;
         foreach ($answers as $answer){
             $preference = new Preference();
-            //$preference->setAnswer($answer);
-            //$content = $answer->getContent();
-            //$preference->setContent($content);
             $preference->setVote($entity);
             $preference->setRank($rank);
             $rank++;

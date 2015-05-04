@@ -105,7 +105,7 @@ class PollController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
-
+        $results = $em->getRepository('VPVotingBundle:Poll')->SimplePlurality($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
@@ -115,6 +115,7 @@ class PollController extends Controller
         return $this->render('VPVotingBundle:Poll:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'results' => $results
         ));
     }
 

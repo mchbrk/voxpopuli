@@ -12,4 +12,35 @@ use Doctrine\ORM\EntityRepository;
  */
 class PollRepository extends EntityRepository
 {
+    public function SimplePlurality($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+        $query = $this->getEntityManager()->createQuery("SELECT P, A, COUNT(P) as C 
+                                                        FROM VPVotingBundle:Preference P 
+                                                        LEFT JOIN P.vote V
+                                                        LEFT JOIN P.answer A
+                                                        where P.rank=1 AND V.poll = :poll 
+                                                        group by P.answer order by C DESC")
+                                          ->setParameter('poll', $poll);
+        $result = $query->getArrayResult();
+        return $result;
+
+
+        /*return  $qb->select('P.answer')
+            ->addSelect('COUNT(P.id) as C')
+            ->from('VPVotingBundle:Preference', 'P')
+            ->leftJoin('P.vote', 'V')
+            ->where('V.poll = :poll')
+            ->andWhere('P.rank = 1')
+            ->groupBy('P.answer')
+            ->orderBy('C', 'DESC')
+            ->setParameter('poll', $poll)
+            ->getQuery()
+            ->getArrayResult();
+            */
+
+    }
 }

@@ -49,20 +49,18 @@ class Vote
      */
     public function validate(ExecutionContextInterface $context)
     {
+        //checking if each preference points to different answer
         $answers = array();
         foreach ($this->getPreferences() as $preference){
             if (in_array($preference->getAnswer(), $answers)){
-                 $context->buildViolation('Each option must be chosen only once.')
+                 $context->buildViolation('Each option can be chosen only once.')
                 ->atPath('preferences')
                 ->addViolation();
                 return;
             }
             array_push($answers, $preference->getAnswer());
         }
-
     }
-
-
     /**
      * Get id
      *

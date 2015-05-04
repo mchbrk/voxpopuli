@@ -2,31 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49bfaa00-c650-443d-b8b9-69cbf00b1af0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/cache/.gitkeep" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/262abaf450bd29e3c82f828224f66443" afterPath="$PROJECT_DIR$/.phpintel/262abaf450bd29e3c82f828224f66443" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/33002e9c58b49145c2fd9be57a6996b4" afterPath="$PROJECT_DIR$/.phpintel/33002e9c58b49145c2fd9be57a6996b4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/bda51257618f281493405778de51ba6f" afterPath="$PROJECT_DIR$/.phpintel/bda51257618f281493405778de51ba6f" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/85c01cae042193fde7ce00dd5b4bba97" afterPath="$PROJECT_DIR$/.phpintel/85c01cae042193fde7ce00dd5b4bba97" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/c9dead1992e4541ba15435b4078fb5cb" afterPath="$PROJECT_DIR$/.phpintel/c9dead1992e4541ba15435b4078fb5cb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/ca7dcf0b6d1ad2d30ab12f3a1b730a84" afterPath="$PROJECT_DIR$/.phpintel/ca7dcf0b6d1ad2d30ab12f3a1b730a84" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/f9b182d43774fee1ef61c9b1b09ddf5f" afterPath="$PROJECT_DIR$/.phpintel/f9b182d43774fee1ef61c9b1b09ddf5f" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/fb8cb4173ad8d4f8ae867a9d7a630114" afterPath="$PROJECT_DIR$/.phpintel/fb8cb4173ad8d4f8ae867a9d7a630114" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.phpintel/index" afterPath="$PROJECT_DIR$/.phpintel/index" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Form/AnswerType.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Form/AnswerType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/PollController.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/PollController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Form/PollType.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Form/PollType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/PreferenceController.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/PreferenceController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Entity/PreferenceRepository.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Entity/PreferenceRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Form/PreferenceType.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Form/PreferenceType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/ResultController.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/ResultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Form/ResultType.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Form/ResultType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Entity/Vote.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Entity/Vote.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/VoteController.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Controller/VoteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Form/VoteType.php" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Form/VoteType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/edit.html.twig" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/index.html.twig" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/index.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Poll/new.html.twig" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Poll/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/new.html.twig" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/config/routing/result.yml" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/config/routing/result.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/show.html.twig" afterPath="$PROJECT_DIR$/src/VP/VotingBundle/Resources/views/Result/show.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoxPopuli.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,8 +35,8 @@
       <file leaf-file-name="PreferenceType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Form/PreferenceType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="1005">
-              <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+            <state vertical-scroll-proportion="-13.75" vertical-offset="75" max-vertical-offset="1065">
+              <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -64,8 +45,8 @@
       <file leaf-file-name="PreferenceController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Controller/PreferenceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.125" vertical-offset="162" max-vertical-offset="3390">
-              <caret line="32" column="7" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="39" />
+            <state vertical-scroll-proportion="-10.125" vertical-offset="192" max-vertical-offset="3420">
+              <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -84,8 +65,8 @@
       <file leaf-file-name="VoteController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Controller/VoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.016008537" vertical-offset="870" max-vertical-offset="3900">
-              <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.3361793" vertical-offset="930" max-vertical-offset="3960">
+              <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -94,8 +75,8 @@
       <file leaf-file-name="AnswerType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Form/AnswerType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="720">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="15" max-vertical-offset="720">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -104,8 +85,8 @@
       <file leaf-file-name="VoteType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Form/VoteType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="60" max-vertical-offset="705">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="45" max-vertical-offset="675">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -328,6 +309,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
     <list size="0" />
@@ -347,7 +329,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18229167" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -416,8 +398,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Form/VoteType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="60" max-vertical-offset="705">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.0" vertical-offset="45" max-vertical-offset="675">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -448,32 +430,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Form/AnswerType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="961">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.0" vertical-offset="15" max-vertical-offset="720">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Controller/PreferenceController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.125" vertical-offset="162" max-vertical-offset="3390">
-          <caret line="32" column="7" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="39" />
+        <state vertical-scroll-proportion="-10.125" vertical-offset="192" max-vertical-offset="3420">
+          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Form/PreferenceType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="1005">
-          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+        <state vertical-scroll-proportion="-13.75" vertical-offset="75" max-vertical-offset="1065">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VP/VotingBundle/Controller/VoteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.016008537" vertical-offset="870" max-vertical-offset="3900">
-          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.3361793" vertical-offset="930" max-vertical-offset="3960">
+          <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
           <folding />
         </state>
       </provider>
