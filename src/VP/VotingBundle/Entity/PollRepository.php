@@ -45,9 +45,9 @@ class PollRepository extends EntityRepository
         $result = $this->SimplePlurality($id);
         $highestRes =max($result);
         $sum = array_sum($result);
-        //if($highestRes/$sum >= 0.5){
-        //    return false;
-        //}else{
+        if($highestRes/$sum >= 0.5){
+           return false;
+        }else{
             $answer_ids = array_keys($result);
             $option1 = $answer_ids[0];
             $option2 = $answer_ids[1];
@@ -83,10 +83,11 @@ class PollRepository extends EntityRepository
                     $votesfor2++;
                 }
             }
-           // } 
+           
 
             return array($option1 => $votesfor1, $option2=>$votesfor2);
             }
+        }
 
 
        
