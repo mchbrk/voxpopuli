@@ -5,6 +5,8 @@ namespace VP\VotingBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use VP\VotingBundle\Entity\Poll;
+use Doctrine\ORM\EntityRepository;
 
 class PreferenceType extends AbstractType
 {
@@ -12,22 +14,25 @@ class PreferenceType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
+    private $poll = null;
+
+    public function __construct(Poll $poll){
+        $this->poll = $poll;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
-        //$id =8; //jakos podac id? i tak nie działa
         $builder
-          /*   ->add('answer', 'entity',  array(
+       ->add('answer', 'entity',  array(
             'class' => 'VP\VotingBundle\Entity\Answer',
-            'property' => 'line',
-            'query_builder' => function (EntityRepository $er) use ($id)
+            'property' => 'content',
+            'query_builder' => function (EntityRepository $er)
             {
       return $er
         ->createQueryBuilder('a')
         ->where('a.poll = :id')
-        ->setParameter('id', $id);
+        ->setParameter('id', $this->poll->getId());
 }
-))*/
-            ->add('answer')
+))
             ->add('approved', 'choice', array(
                 'choices'  => array( 1 => 'approved',  0 => 'not approved'),
                 'required' => false
