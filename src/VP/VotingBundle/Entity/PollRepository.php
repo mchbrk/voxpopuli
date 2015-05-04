@@ -108,8 +108,13 @@ class PollRepository extends EntityRepository
         $bordaCount[$answers[$i]->getId()] = 0;
         } 
 
-    return $bordaCount;
+    $totalScore = count($answers) + 1;
 
+    foreach ($preferences as $preference){
+        $bordaCount[$preference->getAnswer()->getId()] += ($totalScore - $preference->getRank());
+    }
+
+    return $bordaCount;
     }
 
     public function RandomBallot($id){
