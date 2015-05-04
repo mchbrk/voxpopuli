@@ -3,6 +3,8 @@
 namespace VP\VotingBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+//use VP\VotingBundle\Entity\Vote;
+//use VP\VotingBundle\Entity\Preference;
 
 /**
  * PollRepository
@@ -62,12 +64,28 @@ class PollRepository extends EntityRepository
                                               ->setParameter('poll', $poll)
                                               ->setParameter('option1', $option1)
                                               ->setParameter('option2', $option2);
-            return $preferences = $query->getResult();  
-
+            $preferences = $query->getResult();  
+            $votes = array();
             for ($i=0; $i<count($preferences); $i++){
-
+                $vote = $preferences[$i]->getVote()->getId();
+                if ($preferences[$i]->getAnswer()->getId() == $option1){
+                    $votes[$vote][$option1] = $preferences[$i]->getRank();
+                }elseif($preferences[$i]->getAnswer()->getId() == $option2){
+                    $votes[$vote][$option2] = $preferences[$i]->getRank();
+                }
+            }
+            $votesfor1 = 0;
+            $votesfor2 = 0;
+            foreach ($votes as $vote => $result){
+                if($result[$option1] < $result [$option2]){
+                    $votesfor1++;
+                }else{
+                    $votesfor2++;
+                }
             }
            // } 
+
+            return array($option1 => $votesfor1, $option2=>$votesfor2);
             }
 
 
