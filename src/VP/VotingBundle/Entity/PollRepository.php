@@ -25,22 +25,52 @@ class PollRepository extends EntityRepository
                                                         where P.rank=1 AND V.poll = :poll 
                                                         group by P.answer order by C DESC")
                                           ->setParameter('poll', $poll);
-        $result = $query->getArrayResult();
+        $res = $query->getResult();
+        $result = array();
+        foreach ($res as $r){
+            $result[$r[0]->getAnswer()->getId()] = $r["C"]; 
+        }
+
         return $result;
-
-
-        /*return  $qb->select('P.answer')
-            ->addSelect('COUNT(P.id) as C')
-            ->from('VPVotingBundle:Preference', 'P')
-            ->leftJoin('P.vote', 'V')
-            ->where('V.poll = :poll')
-            ->andWhere('P.rank = 1')
-            ->groupBy('P.answer')
-            ->orderBy('C', 'DESC')
-            ->setParameter('poll', $poll)
-            ->getQuery()
-            ->getArrayResult();
-            */
-
     }
+
+    public function PluralityWithRunoff($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+        $result = $this->SimplePlurality($id);
+        $highestRes =max($result);
+        $sum = array_sum($result);
+        //if($highestRes/$sum >= 0.5){
+        //    return false;
+        //}else{
+            $answer_ids = array_keys($result);
+            $option1 = $answer_ids[0];
+            $option2 = $answer_ids[1];
+
+            $em = $this->getEntityManager();
+            $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+            $query = $this->getEntityManager()->createQuery("SELECT P
+                                                            FROM VPVotingBundle:Preference P
+                                                            LEFT JOIN P.vote V
+                                                            LEFT JOIN P.answer A1
+                                                            LEFT JOIN P.answer A2
+                                                            where V.poll =:poll AND A1.id = :option1 OR A2.id = :option2 
+                                                            ")
+                                              ->setParameter('poll', $poll)
+                                              ->setParameter('option1', $option1)
+                                              ->setParameter('option2', $option2);
+            return $preferences = $query->getResult();  
+
+            for ($i=0; $i<count($preferences); $i++){
+
+            }
+           // } 
+            }
+
+
+       
+
 }
