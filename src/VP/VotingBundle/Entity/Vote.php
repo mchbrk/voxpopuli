@@ -4,6 +4,8 @@ namespace VP\VotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Vote
@@ -41,6 +43,24 @@ class Vote
      * @ORM\JoinColumn(name="poll_id", referencedColumnName="id")
      */
     private $poll;
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $answers = array();
+        foreach ($this->getPreferences() as $preference){
+            if (in_array($preference->getAnswer(), $answers)){
+                 $context->buildViolation('Each option must be chosen only once.')
+                ->atPath('preferences')
+                ->addViolation();
+                return;
+            }
+            array_push($answers, $preference->getAnswer());
+        }
+
+    }
 
 
     /**

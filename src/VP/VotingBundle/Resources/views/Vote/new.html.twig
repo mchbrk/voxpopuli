@@ -11,6 +11,7 @@
     <h4 class="mb"><i class="fa fa-angle-right"></i> {{poll.question}}</h4>
       <h3 class="mb text-center">Your vote</h3>
       {{ form_start(form) }}
+      {{ form_errors(form) }}
         {% for preference in form.preferences %}
           <h4> Your preference number {{ preference.vars.value.rank }}: </h4>
             {{ form_row(preference.answer)}}
