@@ -95,6 +95,20 @@ class PollRepository extends EntityRepository
         if (!$poll) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
+        $query = $this->getEntityManager()->createQuery("SELECT P
+                                                            FROM VPVotingBundle:Preference P
+                                                            LEFT JOIN P.vote V
+                                                            where V.poll =:poll 
+                                                            ")
+                                              ->setParameter('poll', $poll);                                      
+    $preferences = $query->getResult(); 
+    $answers = $poll->getAnswers();
+    $bordaCount = array();
+    for ($i=0; $i<count($answers); $i++){
+        $bordaCount[$answers[$i]->getId()] = 0;
+        } 
+
+    return $bordaCount;
 
     }
 
