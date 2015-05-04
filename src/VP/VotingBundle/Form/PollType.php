@@ -15,16 +15,19 @@ class PollType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $timestamp = time();
         $builder
             ->add('name')
             ->add('question', 'textarea', array(
 
                 'attr' => array('style' =>'resize: none')
                 ))
-          /*  ->add('dateEnd', 'collot_datetime', array( 'pickerOptions' =>
+            ->add('dateEnd', 'collot_datetime', array( 'pickerOptions' =>
             array('format' => 'yyyy-mm-dd hh:mm:ss',
                 'weekStart' => 1,
-                'daysOfWeekDisabled' => null, //example
+                'startDate' => date("Y-m-d H:i:s"),
+                'endDate' => date("Y-m-d H:i:s", strtotime('+1 year', $timestamp) ),
+                'daysOfWeekDisabled' => null,//example
                 'autoclose' => true,
                 'startView' => 'month',
                 'minView' => 'hour',
@@ -40,7 +43,7 @@ class PollType extends AbstractType
                 'viewSelect' => 'hour',
                 'showMeridian' => false,
                 )))
-                */ ;  
+                 ;  
 
         $builder->add('answers', 'collection', array(
         'type'         => new AnswerType(),
