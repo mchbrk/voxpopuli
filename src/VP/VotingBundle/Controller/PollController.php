@@ -107,6 +107,7 @@ class PollController extends Controller
         $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
         $results = $em->getRepository('VPVotingBundle:Poll')->SimplePlurality($id);
         $results = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
+        $results = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
         //dump($results);
         //die();
 

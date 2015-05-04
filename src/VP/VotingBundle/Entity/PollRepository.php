@@ -89,6 +89,40 @@ class PollRepository extends EntityRepository
             }
         }
 
+    public function BordaCount($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+
+    }
+
+    public function RandomBallot($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+        $query = $this->getEntityManager()->createQuery("SELECT V
+                                                            FROM VPVotingBundle:Vote V
+                                                            where V.poll = :poll 
+                                                            ")
+                                              ->setParameter('poll', $poll);
+                                        
+        $votes = $query->getResult();
+        $lucky = rand(0, count($votes)-1);
+
+        $query2 = $this->getEntityManager()->createQuery("SELECT P
+                                                      FROM VPVotingBundle:Preference P
+                                                      where P.vote = :vote AND P.rank=1
+                                                        ")
+                                        ->setParameter('vote', $votes[$lucky]);
+        $winner_preference = $query2->getResult();
+        $winner = $winner_preference[0]->getAnswer();
+        return $winner; 
+    }
+
 
        
 
