@@ -15,16 +15,11 @@ poll_create:
     defaults: { _controller: "VPVotingBundle:Poll:create" }
     methods:  POST
 
-poll_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "VPVotingBundle:Poll:edit" }
-
-poll_update:
-    path:     /{id}/update
-    defaults: { _controller: "VPVotingBundle:Poll:update" }
-    methods:  [POST, PUT]
-
 poll_delete:
     path:     /{id}/delete
     defaults: { _controller: "VPVotingBundle:Poll:delete" }
     methods:  [POST, DELETE]
+
+poll_showResults:
+    path: /{id}/results
+    defaults: { _controller: "VPVotingBundle:Poll:showResults"}

@@ -1,45 +1,6 @@
-{% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
+{% extends 'VPLayoutBundle:Home:Simple.html.twig' %}
 
 {% block body %}
-    <script>
-        window.fbAsyncInit = function() {
-            // init the FB JS SDK
-            FB.init({
-                appId      : '1632731040290543',                        // App ID from the app dashboard
-                channelUrl : '//vox-populi.dev',      // Channel file for x-domain comms
-                status     : true,                                 // Check Facebook Login status
-                xfbml      : true                                  // Look for social plugins on the page
-            });
-        };
-
-        // Load the SDK asynchronously
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        function fb_login() {
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    // connected
-                    alert('Already connected, redirect to login page to create token.');
-                    document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
-                } else {
-                    // not_authorized
-                    FB.login(function(response) {
-                        if (response.authResponse) {
-                            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
-                        } else {
-                            alert('Cancelled.');
-                        }
-                    }, {scope: 'email'});
-                }
-            });
-        }
-    </script>
   <div id="login-page">
     {% block fos_user_content %}
         {% if error %}
@@ -66,14 +27,15 @@
 
 
                     <p>or you can sign in via your social network</p>
+                    {# {% render(controller('HWIOAuthBundle:Connect:connect')) %} #}
                     <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Sign in with Facebook">
-                        <button class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</button>
+                        <span class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</span>
                         </a>
                         <button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
                     </div>
                     <div class="registration">
                         Don't have an account yet?<br/>
-                        <a class="" href="{{path('fos_user_registration_register')}}">
+                        <a href="{{path('fos_user_registration_register')}}">
                             Create an account
                         </a>
                     </div>
@@ -110,7 +72,7 @@
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{{asset('bundles/vplayout/js/jquery.js')}}"></script>
     <script src="{{asset('bundles/vplayout/js/bootstrap.min.js')}}"></script>
-    {% render(controller('HWIOAuthBundle:Connect:connect')) %}
+    
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->

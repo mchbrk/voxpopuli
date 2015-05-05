@@ -22,26 +22,27 @@ class PreferenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
         $builder
-       ->add('answer', 'entity',  array(
+        ->add('answer', 'entity',  array(
             'class' => 'VP\VotingBundle\Entity\Answer',
             'property' => 'content',
             'query_builder' => function (EntityRepository $er)
             {
-      return $er
-        ->createQueryBuilder('a')
-        ->where('a.poll = :id')
-        ->setParameter('id', $this->poll->getId());
-}
-))
-            ->add('approved', 'choice', array(
-                'choices'  => array( 1 => 'approved',  0 => 'not approved'),
-                'required' => false
-                )
-            )
+            return $er
+            ->createQueryBuilder('a')
+            ->where('a.poll = :id')
+           ->setParameter('id', $this->poll->getId());
+            }
+            ))
+            ->add('approved', 'checkbox', array(
+            'label'    => 'Approved',
+            'required' => false,
+            'attr' => array('class' =>'checkbox')
+            ))
             ->add('negative', 'choice', array(
-        'choices'  => array(-1 => 'negative vote', 1 => 'positive vote', 0 => 'neutral vote'),
-        'required' => false,
-        'label' => 'Negative voting option:'
+        'choices'  => array(-1 => '-1', 0 => ' ', 1 => '+1'),
+        'required' => true,
+        'label' => ' ',
+        'expanded' => true
 ));
             
         ;

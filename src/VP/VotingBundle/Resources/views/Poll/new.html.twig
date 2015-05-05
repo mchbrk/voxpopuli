@@ -30,22 +30,18 @@
             {{ form_widget(form.dateEnd) }}
         </div>
     </div>
-
-    
-
     <h3 class="mb"><i class="fa fa-angle-right"></i> Answers</h3>
     <div class="answers" data-prototype="{{ form_widget(form.answers.vars.prototype)|e }}">
-    
-        
+        {% for answer in form.answers %}
+        {{form_widget(form.answers)}}
+        {% endfor %}
     </div>
-    
-
     <br>
     <br>
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-theme03  btn-lg btn-block'}}) }}
 {{ form_end(form) }}
 
-</div>
+    </div>
 </div>
 
 <script>

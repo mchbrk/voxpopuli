@@ -12,13 +12,37 @@
       <h3 class="mb text-center">Your vote</h3>
       {{ form_start(form) }}
       {{ form_errors(form) }}
+      <div class="row">
+            <div class="col-md-2 col-md-offset-8">
+              approved
+            </div>
+            <div class="col-md-2">
+            negative voting
+            </div>
+      </div>
         {% for preference in form.preferences %}
-          <h4> Your preference number {{ preference.vars.value.rank }}: </h4>
-            {{ form_row(preference.answer)}}
-            {{ form_row(preference.approved) }}
-            {{ form_row(preference.negative) }}
+           <h5 class="col-md-12">Your choice number {{ preference.vars.value.rank }}:</h5>
+          <div class ="col-md-8">
+            {{ form_widget(preference.answer, {'attr': {'class': 'form-control'}})}}
+          </div>
+          <div class ="col-md-2">
+            {{ form_widget(preference.approved)}}
+          </div>
+          <div class="btn-group col-md-2">
+            {{ form_label(preference.negative)}}
+            {{ form_widget(preference.negative)}}
+          </div>
         {% endfor %}
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-theme03  btn-lg btn-block'}}) }}
+        </div>
+      </div>
     {{ form_end(form) }}
 </div>
 </div>
+ <script>
+    $(".checkbox").bootstrapSwitch();
+  </script>
 {% endblock %}

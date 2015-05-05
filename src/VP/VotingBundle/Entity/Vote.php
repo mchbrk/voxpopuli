@@ -60,6 +60,10 @@ class Vote
             }
             array_push($answers, $preference->getAnswer());
         }
+
+        if ($this->getPoll()->getDateEnd() < new \datetime){
+            
+        }
     }
     /**
      * Get id
@@ -178,5 +182,22 @@ class Vote
     public function getPoll()
     {
         return $this->poll;
+    }
+
+    /**
+    * A function that returns text/content of the option that was chosen as main preference in this Vote
+    *
+    */
+    public function getFirstChoice(){
+        $prefs = $this->preferences;
+        foreach ($prefs as $pref){
+            if ($pref->getRank() == 1){
+                $main = $pref;
+            }
+        }
+
+        $winner = $main->getAnswer()->getContent();
+
+        return $winner;
     }
 }

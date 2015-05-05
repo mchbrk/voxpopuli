@@ -69,6 +69,12 @@ class Poll
     private $user;
 
     /**
+    *
+    *@ORM\Column(name="result", type="text")
+    */
+   // private $result;
+
+    /**
      * @Assert\Callback
      */
     public function validate(ExecutionContextInterface $context)

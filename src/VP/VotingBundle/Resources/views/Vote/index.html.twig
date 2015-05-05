@@ -11,15 +11,22 @@
                                 </div>
                                 <p><a href="{{ path('vote_show', { 'id': entity.id }) }}"><img src="{{asset('bundles/vplayout/img/vote.svg')}}" width="80"></a>
                                 </p>
-                                <p>First choice:</p>
+                                <p>First choice: {{ entity.getFirstChoice() }}</p>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="small mt">DATE</p>
-                                        <p>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</p>
+                                    <div class="col-md-6 col-xs-6">
+                                        <p class="small mt">VOTED ON</p>
+                                        <p>{% if entity.date %}{{ entity.date|date('Y-m-d H:i') }}{% endif %}</p>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <p class="small mt">POLL STATUS</p>
-                                        <p>open</p>
+                                        <p>
+                                            {% if entity.poll.dateEnd < date() %}
+                                                closed
+                                            {% else %}
+                                                open
+                                            {% endif %}
+
+                                        </p>
                                     </div>
                                 </div>
                             </div>

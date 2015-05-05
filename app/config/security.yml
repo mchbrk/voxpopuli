@@ -82,6 +82,8 @@ security:
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
+        - { path: ^/poll/new$, role: ROLE_USER }
+        - { path: ^/vote$, role: ROLE_USER }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

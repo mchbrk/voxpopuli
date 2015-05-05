@@ -14,17 +14,3 @@ vote_create:
     path:     /create/{id}/
     defaults: { _controller: "VPVotingBundle:Vote:create", id:1 }
     methods:  [ GET, POST]
-
-vote_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "VPVotingBundle:Vote:edit" }
-
-vote_update:
-    path:     /{id}/update
-    defaults: { _controller: "VPVotingBundle:Vote:update" }
-    methods:  [POST, PUT]
-
-vote_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "VPVotingBundle:Vote:delete" }
-    methods:  [POST, DELETE]

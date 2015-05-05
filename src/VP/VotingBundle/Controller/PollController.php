@@ -4,9 +4,11 @@ namespace VP\VotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ob\HighchartsBundle\Highcharts\Highchart;
 
 
 use VP\VotingBundle\Entity\Poll;
+use VP\VotingBundle\Entity\Answer;
 use VP\VotingBundle\Form\PollType;
 
 /**
@@ -105,104 +107,124 @@ class PollController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->SimplePlurality($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
-        dump($results);
-        die();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
-
+        if ($entity->getDateEnd() < new \DateTime()){
+            return $this->redirect($this->generateUrl('poll_showResults', array('id' => $id)));
+        }
         $deleteForm = $this->createDeleteForm($id);
+
+        if ($entity->getUser() == $this->getUser()){
+            $candelete = true;
+        }else {
+            $candelete = false;
+        }
 
         return $this->render('VPVotingBundle:Poll:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-            'results' => $results
+            'candelete' => $candelete,
         ));
     }
 
-    /**
-     * Displays a form to edit an existing Poll entity.
-     *
-     */
-    public function editAction($id)
-    {
+
+    public function showResultsAction($id){
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
+        $plurality = $em->getRepository('VPVotingBundle:Poll')->SimplePlurality($id);
+        $pluralityWithRunoff = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
+        $randomBallot = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
+        $bordaCount = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        //generating chart for simple plurality
+        $pl_series = array();
+        $pl_series['data']=array();
+        foreach ($plurality as $option => $votes){
+            $pl_categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+                return $e->getId() ==$option ? true:false;
+            })->first();
+            $pl_series['data'][] = (int) $votes;
 
-        return $this->render('VPVotingBundle:Poll:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+        } 
+        $pl_series = array($pl_series);
+        $chartPlurality = new Highchart();
+        $chartPlurality->chart->type('column');
+        $chartPlurality->chart->renderTo('chartPlurality');  // The #id of the div where to render the chart
+        $chartPlurality->title->text('Simple Plurality');
+        $chartPlurality->xAxis->title(array('text'  => ""));
+        $chartPlurality->yAxis->title(array('text'  => "Number of votes"));
+        $chartPlurality->xAxis->categories($pl_categories);
+        $chartPlurality->series($pl_series);
 
-    /**
-    * Creates a form to edit a Poll entity.
-    *
-    * @param Poll $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Poll $entity)
-    {
-        $form = $this->createForm(new PollType(), $entity, array(
-            'action' => $this->generateUrl('poll_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        //generating chart for runoff
+        if ($pluralityWithRunoff){
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $ro_series = array();
+        $ro_series['data']=array();
 
-        return $form;
-    }
-    /**
-     * Edits an existing Poll entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
+        foreach ($pluralityWithRunoff as $option => $votes){
+            $ro_categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+                return $e->getId() ==$option ? true:false;
+            })->first();
+            $ro_series['data'][] = (int) $votes;
 
-        $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        } 
+        $ro_series = array($ro_series);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Poll entity.');
+        $runoff = new Highchart();
+        $runoff->chart->type('column');
+        $runoff->chart->renderTo('runoff');  // The #id of the div where to render the chart
+        $runoff->title->text('Runoff');
+        $runoff->xAxis->title(array('text'  => ""));
+        $runoff->yAxis->title(array('text'  => "Number of votes"));
+        $runoff->xAxis->categories($ro_categories);
+        $runoff->series($ro_series);
+            
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        //generating chart for borda count
 
-        if ($editForm->isValid()) {
-            $em->flush();
+        $bo_series = array();
+        $bo_series['data']=array();
 
-            return $this->redirect($this->generateUrl('poll_edit', array('id' => $id)));
-        }
+        foreach ($bordaCount as $option => $votes){
+            $bo_categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+                return $e->getId() ==$option ? true:false;
+            })->first();
+            $bo_series['data'][] = (int) $votes;
 
-        return $this->render('VPVotingBundle:Poll:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+        } 
+        $bo_series = array($bo_series);
+
+        $borda = new Highchart();
+        $borda->chart->type('column');
+        $borda->chart->renderTo('borda');  // The #id of the div where to render the chart
+        $borda->title->text('Borda Count');
+        $borda->xAxis->title(array('text'  => ""));
+        $borda->yAxis->title(array('text'  => "Number of votes"));
+        $borda->xAxis->categories($bo_categories);
+        $borda->series($bo_series);
+
+    return $this->render('VPVotingBundle:Poll:results.html.twig', array(
+        'plurality' => $chartPlurality,
+         'entity'      => $entity,
+         'runoff' => $runoff,
+         'borda' => $borda
+    ));
+}
+
     /**
      * Deletes a Poll entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -214,6 +236,9 @@ class PollController extends Controller
                 throw $this->createNotFoundException('Unable to find Poll entity.');
             }
 
+            if ($this->getUser() != $entity->getUser){
+                return false; //cannot delete if you are not the author of poll
+            }
             $em->remove($entity);
             $em->flush();
         }
