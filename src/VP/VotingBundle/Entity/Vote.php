@@ -183,4 +183,21 @@ class Vote
     {
         return $this->poll;
     }
+
+    /**
+    * A function that returns text/content of the option that was chosen as main preference in this Vote
+    *
+    */
+    public function getFirstChoice(){
+        $prefs = $this->preferences;
+        foreach ($prefs as $pref){
+            if ($pref->getRank() == 1){
+                $main = $pref;
+            }
+        }
+
+        $winner = $main->getAnswer()->getContent();
+
+        return $winner;
+    }
 }
