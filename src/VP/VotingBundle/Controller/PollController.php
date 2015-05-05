@@ -140,6 +140,8 @@ class PollController extends Controller
         $pluralityWithRunoff = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
         $randomBallot = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
         $bordaCount = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
+
+        //generating chart for simple plurality
         $pl_series = array();
         $pl_series['data']=array();
         foreach ($plurality as $option => $votes){
@@ -159,6 +161,7 @@ class PollController extends Controller
         $chartPlurality->xAxis->categories($pl_categories);
         $chartPlurality->series($pl_series);
 
+        //generating chart for runoff
         if ($pluralityWithRunoff){
 
         $ro_series = array();
@@ -184,10 +187,34 @@ class PollController extends Controller
             
         }
 
+        //generating chart for borda count
+
+        $bo_series = array();
+        $bo_series['data']=array();
+
+        foreach ($bordaCount as $option => $votes){
+            $bo_categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+                return $e->getId() ==$option ? true:false;
+            })->first();
+            $bo_series['data'][] = (int) $votes;
+
+        } 
+        $bo_series = array($bo_series);
+
+        $borda = new Highchart();
+        $borda->chart->type('column');
+        $borda->chart->renderTo('borda');  // The #id of the div where to render the chart
+        $borda->title->text('Borda Count');
+        $borda->xAxis->title(array('text'  => ""));
+        $borda->yAxis->title(array('text'  => "Number of votes"));
+        $borda->xAxis->categories($bo_categories);
+        $borda->series($bo_series);
+
     return $this->render('VPVotingBundle:Poll:results.html.twig', array(
         'plurality' => $chartPlurality,
          'entity'      => $entity,
-         'runoff' => $runoff
+         'runoff' => $runoff,
+         'borda' => $borda
     ));
 }
 

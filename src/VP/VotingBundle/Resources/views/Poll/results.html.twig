@@ -4,13 +4,32 @@
 
 <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
 <script src="//code.highcharts.com/4.0.1/modules/exporting.js"></script>
+<div class="row">
+<div class="col-md-2 text-left">
+<p>Voting method:</p>
+<p>Number of votes:</p>
+<p>Winner: </p>
+<p>Random ballot winner:</p>
+</div>
+ <div class="col-md-8 text-center">
+ <h3>{{entity}} </h3>
+<h5>{{entity.question}}</h5>
+</div>
+<div class="col-md-2 text-right">
+    <p>Started:</p><p> {{ entity.dateStart|date('Y-m-d H:i') }}</p>
+    <p>Ended: </p><p>{{ entity.dateEnd|date('Y-m-d H:i') }}</p>
+</div>
+</div>
 
-
-<div id="chartPlurality" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<div id="runoff" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div class="row">
+<div id="chartPlurality" class="col-md-6" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="runoff" class="col-md-6" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="borda" class="col-md-6" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
 <script type="text/javascript">
     {{ chart(plurality) }}
      {{ chart(runoff) }}
+     {{chart(borda)}}
 </script>
 
 
