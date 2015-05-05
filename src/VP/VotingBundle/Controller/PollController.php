@@ -133,41 +133,56 @@ class PollController extends Controller
         $pluralityWithRunoff = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
         $randomBallot = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
         $bordaCount = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
-        //dump($plurality);
-        //die;
-        $series = array();
-        $series['data']=array();
+        $pl_series = array();
+        $pl_series['data']=array();
         foreach ($plurality as $option => $votes){
-            $categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+            $pl_categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
                 return $e->getId() ==$option ? true:false;
             })->first();
-            $series['data'][] = (int) $votes;
+            $pl_series['data'][] = (int) $votes;
 
         } 
-        $series = array($series);
+        $pl_series = array($pl_series);
         $chartPlurality = new Highchart();
         $chartPlurality->chart->type('column');
         $chartPlurality->chart->renderTo('chartPlurality');  // The #id of the div where to render the chart
         $chartPlurality->title->text('Simple Plurality');
         $chartPlurality->xAxis->title(array('text'  => ""));
         $chartPlurality->yAxis->title(array('text'  => "Number of votes"));
-        $chartPlurality->xAxis->categories($categories);
+        $chartPlurality->xAxis->categories($pl_categories);
+        $chartPlurality->series($pl_series);
 
-        $chartPlurality->series($series);
+        if ($pluralityWithRunoff){
+
+        $ro_series = array();
+        $ro_series['data']=array();
+
+        foreach ($pluralityWithRunoff as $option => $votes){
+            $ro_categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+                return $e->getId() ==$option ? true:false;
+            })->first();
+            $ro_series['data'][] = (int) $votes;
+
+        } 
+        $ro_series = array($ro_series);
+
+        $runoff = new Highchart();
+        $runoff->chart->type('column');
+        $runoff->chart->renderTo('runoff');  // The #id of the div where to render the chart
+        $runoff->title->text('Runoff');
+        $runoff->xAxis->title(array('text'  => ""));
+        $runoff->yAxis->title(array('text'  => "Number of votes"));
+        $runoff->xAxis->categories($ro_categories);
+        $runoff->series($ro_series);
+            
+        }
 
     return $this->render('VPVotingBundle:Poll:results.html.twig', array(
-        'chart' => $chartPlurality
+        'plurality' => $chartPlurality,
+         'entity'      => $entity,
+         'runoff' => $runoff
     ));
-       
-
-        
-
-
-        return $this->render('VPVotingBundle:Poll:results.html.twig', array(
-            'entity'      => $entity,
-        ));
-
-    }
+}
 
     /**
      * Displays a form to edit an existing Poll entity.
