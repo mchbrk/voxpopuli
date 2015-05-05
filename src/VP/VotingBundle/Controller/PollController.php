@@ -197,6 +197,7 @@ class PollController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -208,6 +209,9 @@ class PollController extends Controller
                 throw $this->createNotFoundException('Unable to find Poll entity.');
             }
 
+            if ($this->getUser() != $entity->getUser){
+                return false; //cannot delete if you are not the author of poll
+            }
             $em->remove($entity);
             $em->flush();
         }
