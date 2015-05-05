@@ -30,10 +30,10 @@
    <a href="{{ path('vote_create', {"id": entity.id }) }}">Vote</a>
         <ul class="record_actions">
 </div>
+{% if candelete %}
+  {{ form(delete_form) }}
 
-    <li>
-        <a href="{{ path('poll') }}">
-            Back to the list
-        </a>
-</ul>
+{% endif %}
+
+
 {% endblock %}

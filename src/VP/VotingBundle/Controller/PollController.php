@@ -116,9 +116,16 @@ class PollController extends Controller
         }
         $deleteForm = $this->createDeleteForm($id);
 
+        if ($entity->getUser() == $this->getUser()){
+            $candelete = true;
+        }else {
+            $candelete = false;
+        }
+
         return $this->render('VPVotingBundle:Poll:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'candelete' => $candelete,
         ));
     }
 
@@ -184,78 +191,6 @@ class PollController extends Controller
     ));
 }
 
-    /**
-     * Displays a form to edit an existing Poll entity.
-     *
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Poll entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('VPVotingBundle:Poll:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-    * Creates a form to edit a Poll entity.
-    *
-    * @param Poll $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Poll $entity)
-    {
-        $form = $this->createForm(new PollType(), $entity, array(
-            'action' => $this->generateUrl('poll_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing Poll entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Poll entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('poll_edit', array('id' => $id)));
-        }
-
-        return $this->render('VPVotingBundle:Poll:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
     /**
      * Deletes a Poll entity.
      *
