@@ -36,6 +36,7 @@ class PreferenceType extends AbstractType
             ->add('approved', 'checkbox', array(
             'label'    => 'Approved',
             'required' => false,
+            'attr' => array('class' =>'checkbox')
             ))
             ->add('negative', 'choice', array(
         'choices'  => array(-1 => '-1', 0 => ' ', 1 => '+1'),

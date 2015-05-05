@@ -4,7 +4,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
                   <p class="centered"><a href="profile.html"><img src="{{asset('bundles/vplayout/img/person.svg')}}" class="img-circle" width="60"></a></p>
-                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <h5 class="centered"> {{app.user.username}} </h5> {% endif %}
+                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <h5 class="centered"> {{app.user.username}} </h5> 
                     
                   <li class="mt">
                       <a class="active" href="{{ path("poll_new") }}">
@@ -24,17 +24,18 @@
                           <li><a  href="{{ path("vote") }}">Your votes</a></li>
                       </ul>
                   </li>
-
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
+                      <a  href=" {{ path("fos_user_profile_edit") }}">
+                            <i class="fa fa-cogs"></i>
                           <span>Your profile</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href=" {{ path("fos_user_profile_edit") }}">Settings</a></li>
-                          <li><a  href="/">Friends</a></li>
-                          <li><a  href="/">Messages</a></li>
-                      </ul>
+                  </li>
+                  {% endif %}
+                   <li class="sub-menu">
+                      <a href="{{ path("poll") }}">
+                            <i class="fa fa-line-chart"></i>
+                          <span>Latest polls</span>
+                      </a>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
