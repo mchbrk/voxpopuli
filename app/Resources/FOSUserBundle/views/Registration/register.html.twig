@@ -1,17 +1,44 @@
-{% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
+{% extends 'VPLayoutBundle:Home:Simple.html.twig' %}
 
 {% block body %}
 
-{% block fos_user_content %}
+<div id="login-page">
+    {% block fos_user_content %}
+        {% trans_default_domain 'FOSUserBundle' %}
+<div class="container">
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-login">
+    {{form_start(form)}}
+                <h2 class="form-login-heading">register</h2>
+                <div class="login-wrap">
+                   
+                     {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'User Name', }}) }}
+                    <br>
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'E-mail', }}) }}
+                    <br>
+                    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Password', }}) }}
+                    <br>
+                    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Repeat password', }}) }}
+                    <br>
+                    <button class="btn btn-theme btn-block"  id="_submit" name="_submit" href="index.html"  type="submit" value="{{ 'registration.submit'|trans }}"><i class="fa"></i> REGISTER</button>
+                    <hr>
+                    
+                    <div class="login-social-link centered">
 
-{% trans_default_domain 'FOSUserBundle' %}
-<br><br><br><br>
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
-    </div>
-</form>
+
+                    <p>or you can sign in via your social network</p>
+                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Sign in with Facebook">
+                        <span class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</span>
+                        </a>
+                        <button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
+                    </div>
+                
+        
+                </div>
+          {{ form_end(form)}}
+              </form>       
+        
+        </div>
+      </div>
 
 
 {% endblock fos_user_content %}

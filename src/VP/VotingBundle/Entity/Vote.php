@@ -60,6 +60,10 @@ class Vote
             }
             array_push($answers, $preference->getAnswer());
         }
+
+        if ($this->getPoll()->getDateEnd() < new \datetime){
+            
+        }
     }
     /**
      * Get id

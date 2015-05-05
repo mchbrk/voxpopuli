@@ -3,9 +3,6 @@
 namespace VP\VotingBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-//use VP\VotingBundle\Entity\Vote;
-//use VP\VotingBundle\Entity\Preference;
-
 /**
  * PollRepository
  *
@@ -45,7 +42,7 @@ class PollRepository extends EntityRepository
         $result = $this->SimplePlurality($id);
         $highestRes =max($result);
         $sum = array_sum($result);
-        if($highestRes/$sum >= 0.5){
+        if($highestRes/$sum > 0.5){
            return false;
         }else{
             $answer_ids = array_keys($result);
@@ -59,7 +56,7 @@ class PollRepository extends EntityRepository
                                                             LEFT JOIN P.vote V
                                                             LEFT JOIN P.answer A1
                                                             LEFT JOIN P.answer A2
-                                                            where V.poll =:poll AND A1.id = :option1 OR A2.id = :option2 
+                                                            where V.poll =:poll AND (A1.id = :option1 OR A2.id = :option2) 
                                                             ")
                                               ->setParameter('poll', $poll)
                                               ->setParameter('option1', $option1)
@@ -82,12 +79,10 @@ class PollRepository extends EntityRepository
                 }else{
                     $votesfor2++;
                 }
-            }
-           
-
-            return array($option1 => $votesfor1, $option2=>$votesfor2);
-            }
         }
+    return array($option1 => $votesfor1, $option2=>$votesfor2);
+    }
+}
 
     public function BordaCount($id){
         $em = $this->getEntityManager();
@@ -101,19 +96,18 @@ class PollRepository extends EntityRepository
                                                             where V.poll =:poll 
                                                             ")
                                               ->setParameter('poll', $poll);                                      
-    $preferences = $query->getResult(); 
-    $answers = $poll->getAnswers();
-    $bordaCount = array();
-    for ($i=0; $i<count($answers); $i++){
-        $bordaCount[$answers[$i]->getId()] = 0;
+        $preferences = $query->getResult(); 
+        $answers = $poll->getAnswers();
+        $bordaCount = array();
+        for ($i=0; $i<count($answers); $i++){
+            $bordaCount[$answers[$i]->getId()] = 0;
         } 
 
-    $totalScore = count($answers) + 1;
+        $totalScore = count($answers) + 1;
 
-    foreach ($preferences as $preference){
-        $bordaCount[$preference->getAnswer()->getId()] += ($totalScore - $preference->getRank());
-    }
-
+        foreach ($preferences as $preference){
+            $bordaCount[$preference->getAnswer()->getId()] += ($totalScore - $preference->getRank());
+        }
     return $bordaCount;
     }
 
@@ -142,7 +136,46 @@ class PollRepository extends EntityRepository
         return $winner; 
     }
 
+    public function SingleTransferableVote($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+        $result = $this->SimplePlurality($id);
+        $highestRes =max($result);
+        $sum = array_sum($result);
+        if($highestRes/$sum > 0.5){
+           return false;
+        }else{
+        }
+    }
 
+    public function CopelandMethod($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+    }
+
+    public function NegativeVoting($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+    }
+
+    public function ApprovalVoting($id){
+        $em = $this->getEntityManager();
+        $poll = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$poll) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+
+
+    }
        
 
 }

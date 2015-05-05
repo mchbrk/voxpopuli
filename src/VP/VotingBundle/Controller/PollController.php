@@ -109,8 +109,8 @@ class PollController extends Controller
         $results = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
         $results = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
         $results = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
-        dump($results);
-        die();
+        //dump($results);
+        //die();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
