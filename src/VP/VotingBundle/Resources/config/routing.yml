@@ -2,18 +2,7 @@ vp_voting_vote:
     resource: "@VPVotingBundle/Resources/config/routing/vote.yml"
     prefix:   /vote
 
-vp_voting_preference:
-    resource: "@VPVotingBundle/Resources/config/routing/preference.yml"
-    prefix:   /preference
-
-vp_voting_answer:
-    resource: "@VPVotingBundle/Resources/config/routing/answer.yml"
-    prefix:   /answer
-
 vp_voting_poll:
     resource: "@VPVotingBundle/Resources/config/routing/poll.yml"
     prefix:   /poll
 
-vp_voting_result:
-    resource: "@VPVotingBundle/Resources/config/routing/result.yml"
-    prefix:   /result

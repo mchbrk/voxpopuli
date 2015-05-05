@@ -4,9 +4,11 @@ namespace VP\VotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ob\HighchartsBundle\Highcharts\Highchart;
 
 
 use VP\VotingBundle\Entity\Poll;
+use VP\VotingBundle\Entity\Answer;
 use VP\VotingBundle\Form\PollType;
 
 /**
@@ -105,24 +107,66 @@ class PollController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->SimplePlurality($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
-        $results = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
-        //dump($results);
-        //die();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
-
+        if ($entity->getDateEnd() < new \DateTime()){
+            return $this->redirect($this->generateUrl('poll_showResults', array('id' => $id)));
+        }
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('VPVotingBundle:Poll:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-            'results' => $results
         ));
+    }
+
+
+    public function showResultsAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('VPVotingBundle:Poll')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Poll entity.');
+        }
+        $plurality = $em->getRepository('VPVotingBundle:Poll')->SimplePlurality($id);
+        $pluralityWithRunoff = $em->getRepository('VPVotingBundle:Poll')->PluralityWithRunoff($id);
+        $randomBallot = $em->getRepository('VPVotingBundle:Poll')->RandomBallot($id);
+        $bordaCount = $em->getRepository('VPVotingBundle:Poll')->BordaCount($id);
+        //dump($plurality);
+        //die;
+        $series = array();
+        $series['data']=array();
+        foreach ($plurality as $option => $votes){
+            $categories[] =(string) $entity->getAnswers()->filter(function (Answer $e) use ($option) {
+                return $e->getId() ==$option ? true:false;
+            })->first();
+            $series['data'][] = (int) $votes;
+
+        } 
+        $series = array($series);
+        $chartPlurality = new Highchart();
+        $chartPlurality->chart->type('column');
+        $chartPlurality->chart->renderTo('chartPlurality');  // The #id of the div where to render the chart
+        $chartPlurality->title->text('Simple Plurality');
+        $chartPlurality->xAxis->title(array('text'  => ""));
+        $chartPlurality->yAxis->title(array('text'  => "Number of votes"));
+        $chartPlurality->xAxis->categories($categories);
+
+        $chartPlurality->series($series);
+
+    return $this->render('VPVotingBundle:Poll:results.html.twig', array(
+        'chart' => $chartPlurality
+    ));
+       
+
+        
+
+
+        return $this->render('VPVotingBundle:Poll:results.html.twig', array(
+            'entity'      => $entity,
+        ));
+
     }
 
     /**

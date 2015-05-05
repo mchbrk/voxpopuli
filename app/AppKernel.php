@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new VP\VotingBundle\VPVotingBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
+            new Ob\HighchartsBundle\ObHighchartsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

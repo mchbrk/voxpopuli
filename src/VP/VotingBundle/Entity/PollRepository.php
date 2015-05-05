@@ -40,7 +40,10 @@ class PollRepository extends EntityRepository
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
         $result = $this->SimplePlurality($id);
-        $highestRes =max($result);
+        $highestRes =count($result)? max($result): 0;
+        if ($highestRes == 0){
+            return false;
+        }
         $sum = array_sum($result);
         if($highestRes/$sum > 0.5){
            return false;
@@ -54,9 +57,8 @@ class PollRepository extends EntityRepository
             $query = $this->getEntityManager()->createQuery("SELECT P
                                                             FROM VPVotingBundle:Preference P
                                                             LEFT JOIN P.vote V
-                                                            LEFT JOIN P.answer A1
-                                                            LEFT JOIN P.answer A2
-                                                            where V.poll =:poll AND (A1.id = :option1 OR A2.id = :option2) 
+                                                            LEFT JOIN P.answer A
+                                                            where V.poll =:poll AND A.id IN (:option1, :option2) 
                                                             ")
                                               ->setParameter('poll', $poll)
                                               ->setParameter('option1', $option1)
@@ -124,6 +126,9 @@ class PollRepository extends EntityRepository
                                               ->setParameter('poll', $poll);
                                         
         $votes = $query->getResult();
+        if (!count($votes)){
+            return 0;
+        }
         $lucky = rand(0, count($votes)-1);
 
         $query2 = $this->getEntityManager()->createQuery("SELECT P
@@ -165,6 +170,15 @@ class PollRepository extends EntityRepository
         if (!$poll) {
             throw $this->createNotFoundException('Unable to find Poll entity.');
         }
+
+        $query = $this->getEntityManager()->createQuery("SELECT P
+                                                            FROM VPVotingBundle:Preference P
+                                                            LEFT JOIN P.vote V
+                                                            LEFT JOIN P.answer A
+                                                            where V.poll =:poll AND A.id IN (:option1, :option2) 
+                                                            ")
+                                              ->setParameter('poll', $poll);
+            $preferences = $query->getResult();  
     }
 
     public function ApprovalVoting($id){

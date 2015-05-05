@@ -25,7 +25,8 @@
         "hwi/oauth-bundle": "0.4.*@dev",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "stephanecollot/datetimepicker-bundle": "dev-master",
-        "snilius/twig-sort-by-field": "0.1.*"
+        "snilius/twig-sort-by-field": "0.1.*",
+        "ob/highcharts-bundle": "~1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

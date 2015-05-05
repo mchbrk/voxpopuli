@@ -1,0 +1,15 @@
+{% extends 'VPLayoutBundle:Home:HomePage.html.twig' %}
+
+{% block body %}
+
+<script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
+<script src="//code.highcharts.com/4.0.1/modules/exporting.js"></script>
+
+
+<div id="chartPlurality" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<script type="text/javascript">
+    {{ chart(chart) }}
+</script>
+
+
+{% endblock %}
