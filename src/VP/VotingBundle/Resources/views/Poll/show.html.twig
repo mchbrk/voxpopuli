@@ -11,11 +11,11 @@
                 
                 <h3>{{ entity.question }}</h3>
             
-               Poll started: {{ entity.dateStart|date('Y-m-d H:i:s') }}
+               Poll started: {{ entity.dateStart|date('Y-m-d H:i') }}
                <br/>
                Poll ends: 
             
-                {{ entity.dateEnd|date('Y-m-d H:i:s') }}
+                {{ entity.dateEnd|date('Y-m-d H:i') }}
     
     <br>
     <h2>Choices</h2>
@@ -32,7 +32,6 @@
 </div>
 {% if candelete %}
   {{ form(delete_form) }}
-
 {% endif %}
 
 

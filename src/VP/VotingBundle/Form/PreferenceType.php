@@ -33,19 +33,15 @@ class PreferenceType extends AbstractType
            ->setParameter('id', $this->poll->getId());
             }
             ))
-           // ->add('approved', 'choice', array(
-             //   'choices'  => array( 1 => 'approved',  0 => 'not approved'),
-               // 'required' => false
-               // )
-            //)
             ->add('approved', 'checkbox', array(
             'label'    => 'Approved',
             'required' => false,
             ))
             ->add('negative', 'choice', array(
-        'choices'  => array(-1 => 'negative vote', 1 => 'positive vote', 0 => 'neutral vote'),
-        'required' => false,
-        'label' => 'Negative voting option:'
+        'choices'  => array(-1 => '-1', 0 => ' ', 1 => '+1'),
+        'required' => true,
+        'label' => ' ',
+        'expanded' => true
 ));
             
         ;
